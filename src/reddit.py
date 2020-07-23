@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+import os.path
 import sys
 import praw
 import requests
 from bs4 import BeautifulSoup
+from os import path
 
 import time
 import random
@@ -349,6 +350,20 @@ def random_submission():
                     params = {"title": rand_sub.title, "url": append_params_to_url(DO_WE_ADD_PARAMS_REUPLOAD, rand_sub.url)}
 
             # Submit the same content to the same subreddit. Prepare your salt picks
+            if path.exists("postLog.txt") == False:
+                f = open("postLog.txt","w+")
+                f.write('')
+                f.close()
+                x = open("postLog.txt", "a")
+                x.write(f'Title: {params[0]}, Text/Link: {params[1]}. \n')
+                x.write("\n")
+                x.close()
+            else:
+                r = open("postLog.txt", "a")
+                r.write(f'Title: {params[0]}, Text/Link: {params[1]}. \n')
+                r.write("\n")
+                r.close()
+
             print(f'Title: {params[0]}, Text/Link: {params[1]}.')
             #api.subreddit(rand_sub.subreddit.display_name).submit(**params)
         except praw.exceptions.APIException as e:
