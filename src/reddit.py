@@ -349,7 +349,8 @@ def random_submission():
                     params = {"title": rand_sub.title, "url": append_params_to_url(DO_WE_ADD_PARAMS_REUPLOAD, rand_sub.url)}
 
             # Submit the same content to the same subreddit. Prepare your salt picks
-            api.subreddit(rand_sub.subreddit.display_name).submit(**params)
+            print(f'Title: {params[0]}, Text/Link: {params[1]}.')
+            #api.subreddit(rand_sub.subreddit.display_name).submit(**params)
         except praw.exceptions.APIException as e:
             raise e
         except Exception as e:
